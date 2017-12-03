@@ -26,9 +26,6 @@ dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:23.0'
     
-    //JAXB for xml support
-    //compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
-
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }

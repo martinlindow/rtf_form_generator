@@ -21,7 +21,10 @@ public class App {
     	configuration.getVariables().put("tester", "${test} + ${test}");
     	
     	
+    	
     	try {
+    		System.err.println(configuration.getVariableValue("tester"));
+    		
 	        JAXBContext context = JAXBContext.newInstance(RtfConfiguration.class);
 	        Marshaller m = context.createMarshaller();
 	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

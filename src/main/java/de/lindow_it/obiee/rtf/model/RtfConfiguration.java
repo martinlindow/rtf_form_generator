@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -56,24 +55,22 @@ public class RtfConfiguration {
 	}
 	
 	/**
-	 * @param formFieldPattern
-	 * @param variables
-	 * @param variableId
-	 * @return
-	 * @throws Exception
+	 * This method tries to retrieve the variable value for the given variable id. If the variable
+	 * itself contains subvariables, they will be replaces as well with detected plain values.
+	 * @param variableId Variable ID to detect
+	 * @return value of the variable
+	 * @throws Exception In case no variable found for given variableId
 	 */
-	public String getVariable(Pattern formFieldPattern, Map<String, String> variables, String variableId) throws Exception {
+	public String getVariableValue(String variableId) throws Exception {
 		String variableValue = variables.get( variableId);
 		if(variableValue == null){
 			throw new Exception(String.format("Variable '%s' not found.", variableId));
 		} else {
 			Matcher matcher = formFieldPattern.matcher(variableValue);
 			while(matcher.find()){
-				variableValue = variableValue.replace(matcher.group(0), getVariable(formFieldPattern, variables, matcher.group(1)));
+				variableValue = variableValue.replace(matcher.group(0), getVariableValue(matcher.group(1)));
 			}
 		}
 		return variableValue;
 	}
-	
-
 }
